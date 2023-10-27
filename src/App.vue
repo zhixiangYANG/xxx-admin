@@ -3,7 +3,10 @@
 </script>
 
 <template>
-  <div>hello</div>
+  <div>hello
+    <el-button>aaa</el-button>
+  </div>
+ 
 </template>
 
 <style scoped>
