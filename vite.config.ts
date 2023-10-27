@@ -1,10 +1,15 @@
 import { fileURLToPath, URL } from 'node:url'
 
-import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import { defineConfig } from 'vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  // 开发环境使用
+  server:{
+    port:8888,
+    open:true
+  },
   plugins: [
     vue(),
   ],
