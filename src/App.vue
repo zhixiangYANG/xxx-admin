@@ -4,7 +4,7 @@
 
 <template>
   <div>hello
-    <el-button>aaa</el-button>
+    <SvgIcon name="ele-Edit" color="red"></SvgIcon>
   </div>
  
 </template>
