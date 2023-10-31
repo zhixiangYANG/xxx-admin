@@ -5,7 +5,7 @@ import { ElMessage } from "element-plus";
 const request: AxiosInstance = axios.create({
   baseURL:
     // "https://mock.mengxuegu.com/mock/653f5db682cf792009576e5b/mxg-vue3-elementplus",
-    '/dev-api',
+    import.meta.env.VITE_APP_BASE_API as string,
   timeout: 20000,
 });
 
