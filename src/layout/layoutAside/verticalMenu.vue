@@ -10,7 +10,7 @@
           <SvgIcon name="ele-Setting"></SvgIcon>
           <span>系统管理</span>
         </template>
-        <el-menu-item index="//system/menu">
+        <el-menu-item index="/system/menu">
           <template #title>
             <SvgIcon name="ele-Menu"></SvgIcon>
             <span>菜单管理</span>
