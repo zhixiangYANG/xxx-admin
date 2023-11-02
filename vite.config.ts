@@ -2,9 +2,9 @@ import { fileURLToPath, URL } from "node:url";
 
 import vue from "@vitejs/plugin-vue";
 import { defineConfig, loadEnv } from "vite";
-
+import vueSetupExtend from "vite-plugin-vue-setup-extend-plus";
 // https://vitejs.dev/config/
-export default defineConfig(({mode}) => {
+export default defineConfig(({ mode }) => {
   // 开发环境使用
   // mode = 模式字符串，process.cwd()= 项目根目录
   const env = loadEnv(mode, process.cwd());
@@ -23,7 +23,7 @@ export default defineConfig(({mode}) => {
         },
       },
     },
-    plugins: [vue()],
+    plugins: [vue(), vueSetupExtend()],
     resolve: {
       alias: {
         "@": fileURLToPath(new URL("./src", import.meta.url)),

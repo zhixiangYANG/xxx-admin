@@ -19,7 +19,7 @@
 </template>
 
 <style scoped>
-:deep .el-scrollbar__view {
+:deep(.el-scrollbar__view) {
   height: 100%;
 }
 </style>
