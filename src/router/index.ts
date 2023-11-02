@@ -9,7 +9,7 @@ declare module "vue-router" {
     linkTo?: string;
     cahe?: boolean;
     hidden?: boolean;
-    inBreadcrumbs?: boolean;
+    isBreadcrumbs?: boolean;
   }
 }
 
