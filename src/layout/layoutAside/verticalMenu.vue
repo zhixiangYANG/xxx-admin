@@ -1,6 +1,6 @@
 <template>
   <el-scrollbar>
-    <el-menu router :default-active="route.path" background-color="transparent" :collapse="false">
+    <el-menu router :default-active="route.path" background-color="transparent" :collapse="isCollapse">
       <el-menu-item index="/home">
         <SvgIcon name="ele-HomeFilled"></SvgIcon>
         <span>首页</span>
@@ -60,8 +60,12 @@
 </template>
 
 <script setup lang="ts">
+import { useLayoutConfigStore } from '@/stores/layoutConfig';
+import { storeToRefs } from 'pinia';
 import { useRoute } from 'vue-router';
 const route = useRoute()
+const layouConfig = useLayoutConfigStore()
+const { isCollapse } = storeToRefs(layouConfig)
 </script>
 
 <style scoped></style>
