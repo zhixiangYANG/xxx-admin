@@ -134,7 +134,7 @@ export const dynamicRoutes: RouteRecordRaw[] = [
       {
         path: "/:path(.*)*",
         name: "NotFound",
-        component: () => import("@/layout/error/404.vue"),
+        component: () => import("@/views/error/404.vue"),
         meta: {
           title: "404",
           cache: true,
