@@ -50,7 +50,6 @@ function getBreadcrumb(to: RouteLocationNormalized) {
 }
 
 function hanldeLink(_route: RouteRecordNormalized) {
-  console.log(_route)
   const { redirect, path } = _route
   if (redirect) router.push(<string>redirect)
   else router.push(path)
