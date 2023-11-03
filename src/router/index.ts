@@ -111,7 +111,7 @@ export const dynamicRoutes: RouteRecordRaw[] = [
       {
         path: "/mengxuegu",
         name: "Mengxuegu",
-        component: () => import("@/layout/link/index.vue"),
+        component: () => import("@/views/link/index.vue"),
         meta: {
           title: "外链",
           icon: "ele-Link",
@@ -123,7 +123,7 @@ export const dynamicRoutes: RouteRecordRaw[] = [
       {
         path: "/401",
         name: "NoPermission",
-        component: () => import("@/layout/error/401.vue"),
+        component: () => import("@/views/error/401.vue"),
         meta: {
           title: "401",
           icon: "ele-Warning",
