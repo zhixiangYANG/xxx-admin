@@ -1,6 +1,17 @@
 <template>
-  <div>
-    <el-table ref="tableListRef" :data="tableList" stripe style="width: 100%" border v-loading="loading" row-key="id">
+  <div class="layout-padding">
+    <el-form :inline="true" :model="query">
+      <el-form-item label="菜单名称">
+        <el-input v-model="query.keyword" placeholder="请输入菜单名称" clearable />
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" icon="ele-Query" @click="queryData()">查询</el-button>
+        <el-button type="success" icon="ele-Plus" @click="handleAdd()">新增菜单</el-button>
+      </el-form-item>
+    </el-form>
+
+    <el-table ref="tableListRef" :data="tableList" stripe style="width: 100%" border v-loading="loading" row-key="id"
+      @row-click="toggleRow">
       <el-table-column prop="meta.title" label="菜单名称" header-align="center" align="left">
         <template #default="{ row }">
           <SvgIcon :name="row.meta?.icon || ''"></SvgIcon>
@@ -16,14 +27,22 @@
         </template>
       </el-table-column>
       <el-table-column prop="sort" label="排序" align="center" />
-      <el-table-column label="操作" align="center"></el-table-column>
+      <el-table-column label="操作" align="center" width="240">
+        <template #default="{ row }">
+          <el-button @click.stop="handleAdd(row.id)" v-if="row.type != 2" icon="ele-Plus" type="primary"
+            link>新增下级</el-button>
+          <el-button @click.stop="handleEdit(row)" icon="ele-Edit" type="warning" link>修改</el-button>
+          <el-button @click.stop="handleDelete(row.id)" icon="ele-Delete" type="danger" link>删除</el-button>
+        </template>
+      </el-table-column>
     </el-table>
   </div>
 </template>
 
 <script setup lang="ts" name="SystemMenu">
 import { getList } from '@/api/system/menu';
-import { onMounted, reactive, toRefs } from 'vue';
+import { onMounted, reactive, ref, toRefs } from 'vue';
+const tableListRef = ref()
 
 const state = reactive({
   loading: false,
@@ -49,6 +68,23 @@ async function queryData() {
   } finally {
     state.loading = false
   }
+}
+
+// 展开收起行
+function toggleRow(row: SysMenuType) {
+  tableListRef.value.toggleRowExpansion(row)
+}
+
+function handleAdd(parentId?: string) {
+
+}
+
+function handleEdit(row: SysMenuType) {
+
+}
+
+function handleDelete(id: string) {
+
 }
 </script>
 
