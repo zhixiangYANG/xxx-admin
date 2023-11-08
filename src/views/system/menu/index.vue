@@ -5,7 +5,7 @@
         <el-input v-model="query.keyword" placeholder="请输入菜单名称" clearable />
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" icon="ele-Query" @click="queryData()">查询</el-button>
+        <el-button type="primary" icon="ele-Search" @click="queryData()">查询</el-button>
         <el-button type="success" icon="ele-Plus" @click="handleAdd()">新增菜单</el-button>
       </el-form-item>
     </el-form>
@@ -32,7 +32,11 @@
           <el-button @click.stop="handleAdd(row.id)" v-if="row.type != 2" icon="ele-Plus" type="primary"
             link>新增下级</el-button>
           <el-button @click.stop="handleEdit(row)" icon="ele-Edit" type="warning" link>修改</el-button>
-          <el-button @click.stop="handleDelete(row.id)" icon="ele-Delete" type="danger" link>删除</el-button>
+          <el-popconfirm width="auto" :title="`确定永久删除【${row.meta?.title}】吗？`" @confirm="handleDelete(row.id)">
+            <template #reference>
+              <el-button @click.stop icon="ele-Delete" type="danger" link>删除</el-button>
+            </template>
+          </el-popconfirm>
         </template>
       </el-table-column>
     </el-table>
@@ -40,8 +44,10 @@
 </template>
 
 <script setup lang="ts" name="SystemMenu">
-import { getList } from '@/api/system/menu';
+import { deleteById, getList } from '@/api/system/menu';
+import { notify } from '@/utils/element';
 import { onMounted, reactive, ref, toRefs } from 'vue';
+
 const tableListRef = ref()
 
 const state = reactive({
@@ -83,8 +89,16 @@ function handleEdit(row: SysMenuType) {
 
 }
 
-function handleDelete(id: string) {
-
+async function handleDelete(id: string) {
+  try {
+    state.loading = true
+    await deleteById(id)
+    notify('删除成功！', { type: 'success' })
+    queryData()
+  } catch (error) { }
+  finally {
+    state.loading = false
+  }
 }
 </script>
 
