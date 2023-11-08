@@ -40,13 +40,17 @@
         </template>
       </el-table-column>
     </el-table>
+
+    <MenuEdit></MenuEdit>
   </div>
 </template>
 
 <script setup lang="ts" name="SystemMenu">
 import { deleteById, getList } from '@/api/system/menu';
 import { notify } from '@/utils/element';
-import { onMounted, reactive, ref, toRefs } from 'vue';
+import { defineAsyncComponent, onMounted, reactive, ref, toRefs } from 'vue';
+
+const MenuEdit = defineAsyncComponent (()=>import('@/views/system/menu/components/menu-edit.vue'))
 
 const tableListRef = ref()
 

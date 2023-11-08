@@ -19,6 +19,7 @@ declare interface SysMenuType {
   code: string; // 权限标识
   redirect: string;
   component: string; // 注意，所在src/views下的相对路径
+  isLink:boolean;
   meta: {
     title: string;
     icon: string;
