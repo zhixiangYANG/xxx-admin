@@ -1,6 +1,6 @@
 <template>
   <el-drawer v-model="visible" :title="title + '菜单'" :before-close="close" direction="rtl" size="650px">
-    <el-form ref="formRef" :model="formData" label-width="85px" label-position="right" status-icon label-suffix=":">
+    <el-form v-loading="loading" ref="formRef" :model="formData" label-width="85px" label-position="right" status-icon label-suffix=":">
       <el-form-item label="上级菜单" prop="parentId">
         {{ formData.parentId }}
       </el-form-item>
@@ -76,8 +76,8 @@
     </el-form>
     <template #footer>
       <el-row justify="center">
-        <el-button>取消</el-button>
-        <el-button type="primary">保存</el-button>
+        <el-button @click="close">取消</el-button>
+        <el-button type="primary" @click="submitForm" :loading="loading">保存</el-button>
       </el-row>
     </template>
   </el-drawer>
@@ -99,7 +99,7 @@ const state = reactive({
   } as SysMenuType
 })
 
-const { title, type, visible, formData } = { ...toRefs(state) }
+const { title, type, visible, formData,loading } = { ...toRefs(state) }
 
 // 导出提供给父组件使用
 defineExpose({
@@ -121,11 +121,17 @@ function open(type: FormType, title: string, data = {} as any) {
 
 // 关闭窗口前触发
 function close() {
+  if (state.loading) return
+  formRef.value?.resetFields()
   state.visible = false
 }
 
 function changeIsLink(val: boolean) {
   if (!val) state.formData.meta.linkTo = '';
+}
+
+function submitForm(){
+
 }
 </script>
 
