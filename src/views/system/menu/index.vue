@@ -41,7 +41,7 @@
       </el-table-column>
     </el-table>
 
-    <MenuEdit></MenuEdit>
+    <MenuEdit ref="editRef" @refresh="queryData"></MenuEdit>
   </div>
 </template>
 
@@ -50,10 +50,13 @@ import { deleteById, getList } from '@/api/system/menu';
 import { notify } from '@/utils/element';
 import { defineAsyncComponent, onMounted, reactive, ref, toRefs } from 'vue';
 
-const MenuEdit = defineAsyncComponent (()=>import('@/views/system/menu/components/menu-edit.vue'))
+const MenuEdit = defineAsyncComponent(() => import('@/views/system/menu/components/menu-edit.vue'))
 
+// 列表ref
 const tableListRef = ref()
 
+// 修改ref
+const editRef = ref()
 const state = reactive({
   loading: false,
   query: {
@@ -86,7 +89,7 @@ function toggleRow(row: SysMenuType) {
 }
 
 function handleAdd(parentId?: string) {
-
+  editRef.value.open('add', '新增', { parentId })
 }
 
 function handleEdit(row: SysMenuType) {

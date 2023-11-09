@@ -1,7 +1,9 @@
 <template>
-  <el-drawer v-model="visible" title="新增菜单" :before-close="close" direction="rtl" size="650px">
+  <el-drawer v-model="visible" :title="title + '菜单'" :before-close="close" direction="rtl" size="650px">
     <el-form ref="formRef" :model="formData" label-width="85px" label-position="right" status-icon label-suffix=":">
-      <el-form-item label="上级菜单" prop="parentId"></el-form-item>
+      <el-form-item label="上级菜单" prop="parentId">
+        {{ formData.parentId }}
+      </el-form-item>
       <el-form-item label="菜单类型" prop="type">
         <el-radio v-model="formData.type" label="1">菜单</el-radio>
         <el-radio v-model="formData.type" label="2">按钮</el-radio>
@@ -69,7 +71,7 @@
         <el-input-number v-model="formData.sort" :min="1" :max="10000" style="width: 300px;"></el-input-number>
       </el-form-item>
       <el-form-item label="备注" prop="remark">
-        <el-input v-model="formData.remark"  type="textarea" placeholder="请输入备注信息" maxlength="100"></el-input>
+        <el-input v-model="formData.remark" type="textarea" placeholder="请输入备注信息" maxlength="100"></el-input>
       </el-form-item>
     </el-form>
     <template #footer>
@@ -83,19 +85,43 @@
 
 <script setup lang="ts">
 import { reactive, ref, toRefs } from 'vue';
-const visible = ref(true)
+const emit = defineEmits(['refresh'])
+const formRef = ref()
+const initData = { type: '1', isLink: false, sort: 1, meta: { hidden: false, cache: true, isBreadcrumd: true } }
 
 const state = reactive({
+  title: '新增',
+  type: 'add' as FormType,
+  visible: false,
+  loading: false,
   formData: {
     meta: {}
   } as SysMenuType
 })
 
-const { formData } = { ...toRefs(state) }
+const { title, type, visible, formData } = { ...toRefs(state) }
+
+// 导出提供给父组件使用
+defineExpose({
+  open
+})
+// 打开窗口
+/**
+ * 
+ * 
+ * @param data 初始表单数据（编辑时可以传递修改的数据） 
+ */
+function open(type: FormType, title: string, data = {} as any) {
+  state.type = type
+  state.title = title
+  state.formData = { ...initData, ...data }
+  state.visible = true
+  console.log(state.formData, 22)
+}
 
 // 关闭窗口前触发
 function close() {
-  visible.value = false
+  state.visible = false
 }
 
 function changeIsLink(val: boolean) {
