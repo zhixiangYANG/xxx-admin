@@ -52,3 +52,16 @@ export function add(data:SysMenuType){
     data
   })
 }
+
+/**
+ * 修改菜单
+ * 
+ * @returns 
+ */
+export function update(data:SysMenuType){
+  return request({
+    url:`${baseUrl}`,
+    method: "PUT",
+    data
+  })
+}

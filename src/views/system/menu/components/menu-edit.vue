@@ -92,7 +92,7 @@
 </template>
 
 <script setup lang="ts">
-import { add, getMenuSelect } from '@/api/system/menu';
+import { add, getMenuSelect, update } from '@/api/system/menu';
 import { notify } from '@/utils/element';
 import { reactive, ref, toRefs } from 'vue';
 const emit = defineEmits(['refresh'])
@@ -136,7 +136,7 @@ async function loadMenuSelect() {
 function open(type: FormType, title: string, data = {} as any) {
   state.type = type
   state.title = title
-  state.formData = { ...initData, ...data }
+  state.formData = JSON.parse(JSON.stringify({ ...initData, ...data }))
   state.visible = true
   console.log(state.formData, 22)
   loadMenuSelect()
@@ -176,7 +176,7 @@ async function submitData() {
     state.loading = true
     let res: any
     if (state.type === 'edit') {
-
+      res = await update(state.formData)
     } else {
       res = await add(state.formData)
     }

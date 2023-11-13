@@ -93,7 +93,7 @@ function handleAdd(parentId?: string) {
 }
 
 function handleEdit(row: SysMenuType) {
-
+  editRef.value.open('edit', '修改', row)
 }
 
 async function handleDelete(id: string) {
