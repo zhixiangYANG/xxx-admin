@@ -92,9 +92,9 @@
 </template>
 
 <script setup lang="ts">
-import { getMenuSelect } from '@/api/system/menu';
+import { add, getMenuSelect } from '@/api/system/menu';
+import { notify } from '@/utils/element';
 import { reactive, ref, toRefs } from 'vue';
-
 const emit = defineEmits(['refresh'])
 const formRef = ref()
 const initData = { type: '1', isLink: false, sort: 1, meta: { hidden: false, cache: true, isBreadcrumd: true } }
@@ -149,13 +149,50 @@ function close() {
   state.visible = false
 }
 
+// 提交表单
+function submitForm() {
+  formRef.value.validate((valid: boolean) => {
+    if (!valid) return
+    // 校验通过，如果是按钮（type=='2')将对应不需要的属性把它清空
+    if (state.formData.type == '2') {
+      state.formData.path = ''
+      state.formData.name = ''
+      state.formData.redireact = ''
+      state.formData.component = ''
+      state.formData.linkTo = ''
+      state.formData.isLink = false
+      state.formData.meta.icon = ''
+      state.formData.meta.hidden = false
+      state.formData.meta.cache = false
+      state.formData.meta.isBreadcrumd = false
+    }
+    submitData()
+  })
+}
+
+// 提交数据
+async function submitData() {
+  try {
+    state.loading = true
+    let res: any
+    if (state.type === 'edit') {
+
+    } else {
+      res = await add(state.formData)
+    }
+    state.loading = false
+    if (res.code !== 20000) return
+    notify('操作成功！', { type: 'success' })
+    close()
+    emit('refresh')
+  } catch (e) { }
+  finally { state.loading = false }
+}
+
 function changeIsLink(val: boolean) {
   if (!val) state.formData.meta.linkTo = '';
 }
 
-function submitForm() {
-
-}
 </script>
 
 <style scoped></style>

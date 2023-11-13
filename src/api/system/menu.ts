@@ -39,3 +39,16 @@ export function getMenuSelect(){
     method: "GET",
   })
 }
+
+/**
+ * 新增菜单
+ * 
+ * @returns 
+ */
+export function add(data:SysMenuType){
+  return request({
+    url:`${baseUrl}`,
+    method: "POST",
+    data
+  })
+}
