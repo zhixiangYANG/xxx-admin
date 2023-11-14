@@ -3,3 +3,12 @@
  */
 
 declare type FormType = "edit" | "add";
+
+/**
+ * 分页类型
+ */
+declare type PageType = {
+  current: number;
+  size: number;
+  total: number;
+};

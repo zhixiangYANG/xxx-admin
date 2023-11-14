@@ -19,7 +19,7 @@ declare interface SysMenuType {
   code: string; // 权限标识
   redirect: string;
   component: string; // 注意，所在src/views下的相对路径
-  isLink:boolean;
+  isLink: boolean;
   meta: {
     title: string;
     icon: string;
@@ -33,4 +33,20 @@ declare interface SysMenuType {
   createTime: string;
   updateTime: string;
   children: Array;
+}
+
+// 角色询条件
+declare interface SysRoleQuery {
+  name: string;
+}
+
+// 角色实体类型
+declare interface SysRoleType {
+  id: string;
+  roleName: string;
+  roleCode: string;
+  status: boolean;
+  remark: string;
+  updateTime: string;
+  createTime: string;
 }
